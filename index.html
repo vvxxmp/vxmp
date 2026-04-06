@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VXMP - Scripts & Executors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #ff6b6b;
+            border-bottom-color: #ff6b6b;
+            background: white;
+        }
+
+        .tab-btn:hover {
+            color: #ff6b6b;
+            background: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            background: #5865f2;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 30px auto;
+            display: block;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+        }
+
+        .discord-btn:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(88, 101, 242, 0.5);
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 VXMP</h1>
+            <p>Your ultimate destination for scripts & executors</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('scripts')">📜 Scripts</button>
+            <button class="tab-btn" onclick="openTab('executors')">⚙️ Executors</button>
+        </div>
+
+        <div id="scripts" class="tab-content active">
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🎮 Game Scripts</h3>
+                    <p>Premium scripts for your favorite games. Infinite yield, ESP, Aimbot, and more!</p>
+                </div>
+                <div class="card">
+                    <h3>🔥 Popular Scripts</h3>
+                    <p>Top-rated community scripts updated daily. Join Discord for the latest releases.</p>
+                </div>
+                <div class="card">
+                    <h3>📚 Script Hub</h3>
+                    <p>Browse thousands of user-submitted scripts. Load directly into your executor.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Universal Scripts</h3>
+                    <p>Works across multiple platforms and games. One script for all your needs.</p>
+                </div>
+            </div>
+            <a href="https://discord.gg/nTec3fHj" class="discord-btn" target="_blank">
+                👑 Join VXMP Discord for Scripts
+            </a>
+        </div>
+
+        <div id="executors" class="tab-content">
+            <div class="content-grid">
+                <div class="card">
+                    <h3>💎 Premium Executors</h3>
+                    <p>Level 7 & 8 executors with full LuaU support. Undetected and blazing fast.</p>
+                </div>
+                <div class="card">
+                    <h3>🆓 Free Executors</h3>
+                    <p>Trusted free executors with key systems. Regular updates and support.</p>
+                </div>
+                <div class="card">
+                    <h3>🔒 Keyless Executors</h3>
+                    <p>No keys, no waiting. Instant access to powerful execution.</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Mobile Executors</h3>
+                    <p>Execute scripts on Android & iOS. Full mobile support available.</p>
+                </div>
+            </div>
+            <a href="https://discord.gg/nTec3fHj" class="discord-btn" target="_blank">
+                🎮 Join VXMP Discord for Executors
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
