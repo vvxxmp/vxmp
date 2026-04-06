@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VXMP - Scripts & Executors</title>
+    <title>VXMP - Exploit Hub</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,234 +14,394 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 1000px;
-            width: 100%;
-            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .header {
-            background: linear-gradient(135deg, #ff6b6b, #feca57);
-            padding: 30px;
             text-align: center;
-            color: white;
+            margin-bottom: 50px;
+            animation: slideDown 1s ease-out;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc, #8b5cf6);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite, glow 2s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
         }
 
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .tabs {
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px #8b5cf6); }
+            to { filter: drop-shadow(0 0 30px #a855f7); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-tabs {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 5px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+            animation: slideUp 1s ease-out 0.3s both;
         }
 
-        .tab-btn {
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-btn {
             flex: 1;
             padding: 20px;
-            background: none;
+            background: transparent;
             border: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #6c757d;
+            color: #b8b8b8;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .tab-btn.active {
-            color: #ff6b6b;
-            border-bottom-color: #ff6b6b;
-            background: white;
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+            transition: left 0.5s;
         }
 
-        .tab-btn:hover {
-            color: #ff6b6b;
-            background: #f8f9fa;
+        .nav-btn:hover::before {
+            left: 100%;
         }
 
-        .tab-content {
+        .nav-btn.active {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-panel {
             display: none;
-            padding: 40px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .tab-content.active {
+        .tab-panel.active {
             display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border-left: 5px solid #ff6b6b;
+        .exploit-card {
+            background: rgba(25, 25, 40, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        .exploit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
 
-        .card h3 {
-            color: #333;
+        .exploit-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .exploit-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.6);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #ffffff;
             margin-bottom: 15px;
-            font-size: 1.3em;
         }
 
-        .card p {
-            color: #666;
+        .card-desc {
+            color: #b8b8b8;
             line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .discord-hero {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin: 50px 0;
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); }
+            to { box-shadow: 0 0 50px rgba(139, 92, 246, 0.6); }
         }
 
         .discord-btn {
             display: inline-block;
-            background: #5865f2;
+            background: linear-gradient(135deg, #7289da, #5865f2);
             color: white;
-            padding: 15px 40px;
+            padding: 20px 50px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1em;
-            margin: 30px auto;
-            display: block;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(114, 137, 218, 0.4);
         }
 
         .discord-btn:hover {
-            background: #4752c4;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(88, 101, 242, 0.5);
-        }
-
-        .placeholder {
-            text-align: center;
-            color: #999;
-            font-style: italic;
-            padding: 40px;
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(114, 137, 218, 0.6);
         }
 
         @media (max-width: 768px) {
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
+            .logo { font-size: 2.5rem; }
+            .nav-tabs { flex-direction: column; }
+            .content-grid { grid-template-columns: 1fr; }
+            .discord-hero { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+
     <div class="container">
-        <div class="header">
-            <h1>🚀 VXMP</h1>
-            <p>Your ultimate destination for scripts & executors</p>
-        </div>
+        <header class="header">
+            <h1 class="logo">VXMP</h1>
+            <p style="font-size: 1.3rem; color: #b8b8b8;">Ultimate Exploit & Script Hub</p>
+        </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab('scripts')">📜 Scripts</button>
-            <button class="tab-btn" onclick="openTab('executors')">⚙️ Executors</button>
-        </div>
+        <nav class="nav-tabs">
+            <button class="nav-btn active" onclick="switchTab('scripts')">🧬 Scripts</button>
+            <button class="nav-btn" onclick="switchTab('executors')">⚡ Executors</button>
+        </nav>
 
-        <div id="scripts" class="tab-content active">
-            <div class="content-grid">
-                <div class="card">
-                    <h3>🎮 Game Scripts</h3>
-                    <p>Premium scripts for your favorite games. Infinite yield, ESP, Aimbot, and more!</p>
+        <main>
+            <section id="scripts" class="tab-panel active">
+                <div class="content-grid">
+                    <div class="exploit-card">
+                        <span class="card-icon">🎮</span>
+                        <h3 class="card-title">Game Scripts</h3>
+                        <p class="card-desc">Premium collection of game scripts including ESP, Aimbot, Speed hacks and more.</p>
+                    </div>
+                    <div class="exploit-card">
+                        <span class="card-icon">🔥</span>
+                        <h3 class="card-title">Universal Scripts</h3>
+                        <p class="card-desc">Cross-platform scripts that work across multiple games and executors.</p>
+                    </div>
+                    <div class="exploit-card">
+                        <span class="card-icon">📡</span>
+                        <h3 class="card-title">Remote Spy</h3>
+                        <p class="card-desc">Execute remote events and functions from any game server.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>🔥 Popular Scripts</h3>
-                    <p>Top-rated community scripts updated daily. Join Discord for the latest releases.</p>
+            </section>
+
+            <section id="executors" class="tab-panel">
+                <div class="content-grid">
+                    <div class="exploit-card">
+                        <span class="card-icon">💎</span>
+                        <h3 class="card-title">JJSploit</h3>
+                        <p class="card-desc">Powerful Level 7 executor with full LuaU support. Trusted by millions.</p>
+                        <a href="https://github.com/wcrddn/wcrddn.github.io/raw/refs/heads/main/perm/jjsploit_8.17.9_x64_en-US.msi" class="download-btn" download>📥 Download JJSploit</a>
+                    </div>
+                    <div class="exploit-card">
+                        <span class="card-icon">🚀</span>
+                        <h3 class="card-title">Premium Executors</h3>
+                        <p class="card-desc">Level 8 executors with advanced features and bypasses.</p>
+                    </div>
+                    <div class="exploit-card">
+                        <span class="card-icon">📱</span>
+                        <h3 class="card-title">Mobile Exploits</h3>
+                        <p class="card-desc">Android & iOS exploit solutions for mobile gaming.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>📚 Script Hub</h3>
-                    <p>Browse thousands of user-submitted scripts. Load directly into your executor.</p>
-                </div>
-                <div class="card">
-                    <h3>⚡ Universal Scripts</h3>
-                    <p>Works across multiple platforms and games. One script for all your needs.</p>
-                </div>
+            </section>
+
+            <div class="discord-hero">
+                <h2 style="font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 20px; color: #ffffff;">
+                    👑 Join the Elite Community
+                </h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; color: #b8b8b8;">
+                    Get exclusive scripts, executors & 24/7 support
+                </p>
+                <a href="https://discord.gg/nTec3fHj" class="discord-btn" target="_blank">Join VXMP Discord</a>
             </div>
-            <a href="https://discord.gg/nTec3fHj" class="discord-btn" target="_blank">
-                👑 Join VXMP Discord for Scripts
-            </a>
-        </div>
-
-        <div id="executors" class="tab-content">
-            <div class="content-grid">
-                <div class="card">
-                    <h3>💎 Premium Executors</h3>
-                    <p>Level 7 & 8 executors with full LuaU support. Undetected and blazing fast.</p>
-                </div>
-                <div class="card">
-                    <h3>🆓 Free Executors</h3>
-                    <p>Trusted free executors with key systems. Regular updates and support.</p>
-                </div>
-                <div class="card">
-                    <h3>🔒 Keyless Executors</h3>
-                    <p>No keys, no waiting. Instant access to powerful execution.</p>
-                </div>
-                <div class="card">
-                    <h3>📱 Mobile Executors</h3>
-                    <p>Execute scripts on Android & iOS. Full mobile support available.</p>
-                </div>
-            </div>
-            <a href="https://discord.gg/nTec3fHj" class="discord-btn" target="_blank">
-                🎮 Join VXMP Discord for Executors
-            </a>
-        </div>
+        </main>
     </div>
 
     <script>
-        function openTab(tabName) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => content.classList.remove('active'));
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Remove active classes
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
 
-            // Remove active class from all tab buttons
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns.forEach(btn => btn.classList.remove('active'));
-
-            // Show selected tab content
+            // Add active classes
             document.getElementById(tabName).classList.add('active');
-
-            // Add active class to clicked tab button
             event.target.classList.add('active');
         }
+
+        // Animated particles background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Staggered card animations
+            const cards = document.querySelectorAll('.exploit-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Smooth scroll and enhanced interactions
+        document.querySelectorAll('.download-btn, .discord-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
     </script>
 </body>
 </html>
