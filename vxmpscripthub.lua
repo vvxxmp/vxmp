@@ -284,6 +284,30 @@ end
 
 content.CanvasSize = UDim2.new(0, 0, 0, yPos)
 
+local instructionFrame = Instance.new("Frame")
+instructionFrame.Name = "InstructionFrame"
+instructionFrame.Size = UDim2.new(1, -24, 0, 24)
+instructionFrame.Position = UDim2.new(0, 12, 1, -36)
+instructionFrame.BackgroundTransparency = 1
+instructionFrame.Parent = mainFrame
+
+local instructionLabel = Instance.new("TextLabel")
+instructionLabel.Name = "InstructionLabel"
+instructionLabel.Size = UDim2.new(1, 0, 1, 0)
+instructionLabel.BackgroundTransparency = 1
+instructionLabel.Text = "Click COPY then paste code into your executor"
+instructionLabel.TextColor3 = Color3.fromRGB(180, 185, 195)
+instructionLabel.TextSize = 11
+instructionLabel.Font = Enum.Font.Gotham
+instructionLabel.TextXAlignment = Enum.TextXAlignment.Center
+instructionLabel.Parent = instructionFrame
+
+-- Subtle fade-in animation for instruction
+instructionLabel.TextTransparency = 1
+TweenService:Create(instructionLabel, TweenInfo.new(0.8, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+    TextTransparency = 0
+}):Play()
+
 mainFrame.Size = UDim2.new(0, 0, 0, 0)
 TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
     Size = UDim2.new(0, 520, 0, 380)
