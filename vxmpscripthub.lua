@@ -174,12 +174,12 @@ end)
 local buttonsData = {
     {
         name = "Dex Explorer",
-        text = "loadstring(game:HttpGet("https://raw.githubusercontent.com/Dexploits/DexHub/main/Dex%20Hub.lua"))()",
+        text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Dexploits/DexHub/main/Dex%20Hub.lua"))()',
         subtitle = "Universal"
     },
     {
         name = "VAPE universal",
-        text = "loadstring(game:HttpGet("https://raw.githubusercontent.com/LyxOnlyEu/VAPE/main/vape_public.lua"))()",
+        text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/LyxOnlyEu/VAPE/main/vape_public.lua"))()',
         subtitle = "Universal"
     }
 }
