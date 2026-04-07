@@ -173,16 +173,14 @@ end)
 
 local buttonsData = {
     {
-        name = "Speed Hack",
-        text = "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100",
-        subtitle = "Movement"
+        name = "Dex Explorer",
+        text = "loadstring(game:HttpGet("https://raw.githubusercontent.com/Dexploits/DexHub/main/Dex%20Hub.lua"))()",
+        subtitle = "Universal"
     },
     {
-        name = "Fullbright",
-        text = [[game.Lighting.Brightness = 2
-game.Lighting.GlobalShadows = false
-game.Lighting.FogEnd = 9e9]],
-        subtitle = "Lighting"
+        name = "VAPE universal",
+        text = "loadstring(game:HttpGet("https://raw.githubusercontent.com/LyxOnlyEu/VAPE/main/vape_public.lua"))()",
+        subtitle = "Universal"
     }
 }
 
